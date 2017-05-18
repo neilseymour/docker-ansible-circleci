@@ -7,7 +7,7 @@ ENV TOWERCLI_VERSION="2.3.0"
 # install essentials
 RUN apt-get update \
   && apt-get -y install --no-install-recommends \
-       curl git-core dnsutils build-essential \
+       curl git-core dnsutils build-essential jq \
        python-all-dev python-pip \
        python-yaml python-jinja2 python-httplib2 python-paramiko python-pkg-resources python-keyczar \
   && apt-get clean \
