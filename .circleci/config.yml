@@ -1,0 +1,16 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: docker:17.07.0-ce-git
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          command: docker build -t quipper/docker-ansible:${CIRCLE_SHA1} .
+      - run:
+          command: |
+            if [[ $CIRCLE_BRANCH == "master" ]]; then
+              docker login -u ${DOCKERHUB_USER} -p ${DOCKERHUB_PASSWORD}
+              docker push quipper/docker-ansible:${CIRCLE_SHA1}
+            fi
