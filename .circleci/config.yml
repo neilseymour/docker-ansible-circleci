@@ -7,10 +7,10 @@ jobs:
       - checkout
       - setup_remote_docker
       - run:
-          command: docker build -t quipper/docker-ansible:`date "+%Y%m%d"` .
+          command: docker build -t quipper/docker-ansible:${CIRCLE_SHA1} .
       - run:
           command: |
             if [[ $CIRCLE_BRANCH == "master" ]]; then
               docker login -u ${DOCKERHUB_USER} -p ${DOCKERHUB_PASSWORD}
-              docker push quipper/docker-ansible:`date "+%Y%m%d"`
+              docker push quipper/docker-ansible:${CIRCLE_SHA1}
             fi
